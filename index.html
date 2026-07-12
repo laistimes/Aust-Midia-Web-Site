@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aust Midia - Produção audiovisual em Porto Alegre</title>
+    <meta
+      name="description"
+      content="Aust Midia: edição de vídeo, filmagem, fotografia, CGs, vinhetas de abertura e edição para podcasts. Conteúdo que faz sua marca acontecer."
+    />
+    <meta property="og:title" content="Aust Midia - Produção audiovisual" />
+    <meta property="og:description" content="Edição de vídeo, filmagens, fotos, CGs e podcasts." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/hero.jpg" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #05020a;
+        --panel: #12091f;
+        --panel-soft: rgba(18, 9, 31, 0.78);
+        --text: #fbf9ff;
+        --muted: #c5b7dc;
+        --line: rgba(255, 255, 255, 0.11);
+        --brand-a: #7c3cff;
+        --brand-b: #c026ff;
+        --brand-c: #ff3da6;
+        --accent: #d84dff;
+        --gradient: linear-gradient(120deg, var(--brand-a), var(--brand-b), var(--brand-c));
+        --shadow: 0 22px 92px -26px rgba(192, 38, 255, 0.78);
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          radial-gradient(circle at 16% 8%, rgba(124, 60, 255, 0.26), transparent 34%),
+          radial-gradient(circle at 84% 14%, rgba(255, 61, 166, 0.22), transparent 32%),
+          linear-gradient(180deg, rgba(5, 2, 10, 0.18), var(--bg) 720px),
+          var(--bg);
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: rgba(5, 2, 10, 0.76);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 68px;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        width: 30px;
+        height: 30px;
+        border-radius: 7px;
+        background:
+          linear-gradient(rgba(5, 2, 10, 0.08), rgba(5, 2, 10, 0.08)),
+          url("favicon.ico") center / cover no-repeat;
+        box-shadow:
+          0 0 0 1px rgba(216, 77, 255, 0.45),
+          0 0 22px rgba(192, 38, 255, 0.88),
+          0 0 44px rgba(255, 61, 166, 0.38);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .nav-links a,
+      .footer a {
+        transition: color 180ms ease;
+      }
+
+      .nav-links a:hover,
+      .footer a:hover {
+        color: var(--text);
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        gap: 9px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        padding: 0 18px;
+        font-weight: 700;
+        line-height: 1;
+        transition:
+          transform 180ms ease,
+          opacity 180ms ease,
+          border-color 180ms ease,
+          background 180ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button-primary {
+        background: var(--gradient);
+        color: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .button-secondary {
+        border-color: var(--line);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+      }
+
+      .hero {
+        position: relative;
+        min-height: 92vh;
+        overflow: hidden;
+        padding: 154px 0 116px;
+        display: grid;
+        align-items: center;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(23, 21, 27, 0.35), var(--bg) 96%),
+          linear-gradient(90deg, rgba(5, 2, 10, 0.93), rgba(18, 9, 31, 0.55)),
+          url("assets/hero.jpg") center / cover;
+        opacity: 0.88;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(115deg, rgba(124, 60, 255, 0.36), transparent 42%, rgba(255, 61, 166, 0.18)),
+          radial-gradient(circle at 70% 22%, rgba(216, 77, 255, 0.22), transparent 30%);
+        pointer-events: none;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 840px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(33, 31, 40, 0.62);
+        padding: 8px 14px;
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-family: "Space Grotesk", Inter, sans-serif;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        max-width: 900px;
+        margin-top: 28px;
+        font-size: clamp(3.2rem, 8vw, 7.6rem);
+        line-height: 0.97;
+      }
+
+      h2 {
+        font-size: clamp(2.35rem, 4.4vw, 4.25rem);
+        line-height: 1.04;
+      }
+
+      h3 {
+        font-size: 1.32rem;
+      }
+
+      .gradient-text {
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .lead {
+        max-width: 680px;
+        margin: 26px 0 0;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.28rem);
+        line-height: 1.65;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 38px;
+      }
+
+      section {
+        padding: 108px 0;
+      }
+
+      .section-intro {
+        max-width: 690px;
+      }
+
+      .kicker {
+        margin: 0 0 14px;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 58px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--line);
+        gap: 1px;
+      }
+
+      .service {
+        min-height: 240px;
+        padding: 32px;
+        background: var(--panel);
+        transition:
+          background 180ms ease,
+          transform 180ms ease;
+      }
+
+      .service:hover {
+        background: #1b0f2c;
+      }
+
+      .service-icon {
+        display: grid;
+        place-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        background: var(--gradient);
+        color: #fff;
+        font-weight: 800;
+        box-shadow: var(--shadow);
+      }
+
+      .service h3 {
+        margin-top: 26px;
+      }
+
+      .service p,
+      .about-copy,
+      .contact p {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .service p {
+        margin: 12px 0 0;
+        font-size: 0.96rem;
+      }
+
+      .clients-section {
+        padding-top: 40px;
+      }
+
+      .clients-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 28px;
+      }
+
+      .clients-head p:last-child {
+        max-width: 430px;
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .clients-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 1px;
+        margin-top: 44px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--line);
+      }
+
+      .client-logo {
+        display: grid;
+        place-items: center;
+        min-height: 118px;
+        padding: 22px 14px;
+        background:
+          radial-gradient(circle at 50% 0%, rgba(192, 38, 255, 0.18), transparent 58%),
+          var(--panel);
+        color: var(--text);
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: clamp(1rem, 1.4vw, 1.35rem);
+        font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+        transition:
+          background 180ms ease,
+          color 180ms ease,
+          text-shadow 180ms ease;
+      }
+
+      .client-logo:hover {
+        background:
+          linear-gradient(120deg, rgba(124, 60, 255, 0.22), rgba(255, 61, 166, 0.2)),
+          #1b0f2c;
+        color: #fff;
+        text-shadow:
+          0 0 18px rgba(216, 77, 255, 0.72),
+          0 0 34px rgba(255, 61, 166, 0.38);
+      }
+
+      .client-logo img {
+        width: min(148px, 82%);
+        max-height: 62px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 14px rgba(216, 77, 255, 0.28));
+      }
+
+      .client-logo img.logo-wide {
+        width: min(238px, 98%);
+        max-height: 92px;
+      }
+
+      .about-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr);
+        gap: 64px;
+        align-items: center;
+      }
+
+      .about-copy {
+        margin: 24px 0 0;
+        font-size: 1.08rem;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .stat {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel-soft);
+        padding: 18px;
+      }
+
+      .stat strong {
+        display: block;
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: clamp(1.7rem, 3vw, 2.3rem);
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .stat span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .about-video {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: 0 18px 62px -34px rgba(0, 0, 0, 0.9);
+        aspect-ratio: 16 / 9;
+        background: #08030e;
+      }
+
+      .about-video iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .video-fallback {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .video-fallback a {
+        color: var(--text);
+        font-weight: 700;
+        text-decoration: underline;
+        text-decoration-color: rgba(255, 255, 255, 0.28);
+        text-underline-offset: 4px;
+      }
+
+      .contact {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          linear-gradient(120deg, rgba(124, 60, 255, 0.3), rgba(255, 61, 166, 0.2)),
+          var(--panel);
+        padding: clamp(38px, 7vw, 72px);
+        text-align: center;
+      }
+
+      .contact h2,
+      .contact p,
+      .contact .button {
+        position: relative;
+      }
+
+      .contact p {
+        max-width: 650px;
+        margin: 20px auto 0;
+        font-size: 1.08rem;
+      }
+
+      .contact .button {
+        margin-top: 34px;
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        padding: 34px 0;
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .footer .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .footer-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .footer-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .footer-brand .brand-mark {
+        width: 22px;
+        height: 22px;
+        box-shadow:
+          0 0 0 1px rgba(216, 77, 255, 0.34),
+          0 0 18px rgba(192, 38, 255, 0.5);
+      }
+
+      @media (max-width: 900px) {
+        .nav-links {
+          display: none;
+        }
+
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .clients-head {
+          display: block;
+        }
+
+        .clients-head p:last-child {
+          margin-top: 18px;
+        }
+
+        .clients-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .about-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .about-video {
+          max-width: 520px;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .container {
+          width: min(100% - 28px, 1120px);
+        }
+
+        .site-header .button {
+          min-height: 38px;
+          padding: 0 12px;
+          font-size: 0.86rem;
+        }
+
+        .brand {
+          font-size: 1rem;
+        }
+
+        .hero {
+          min-height: auto;
+          padding: 124px 0 82px;
+        }
+
+        .hero-actions,
+        .hero-actions .button {
+          width: 100%;
+        }
+
+        section {
+          padding: 72px 0;
+        }
+
+        .services-grid,
+        .clients-grid,
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .service {
+          min-height: 0;
+          padding: 28px;
+        }
+
+        .footer .container {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .footer-links {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="#top" aria-label="Aust Midia">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Aust Midia</span>
+        </a>
+        <nav class="nav-links" aria-label="Navegação principal">
+          <a href="#services">Serviços</a>
+          <a href="#clients">Clientes</a>
+          <a href="#about">Sobre</a>
+          <a href="#contact">Contato</a>
+        </nav>
+        <a class="button button-primary" href="https://www.instagram.com/amidiapoa/" target="_blank" rel="noreferrer">
+          Instagram
+        </a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="Aust Midia">
+        <div class="container hero-content">
+          <span class="eyebrow">Estúdio audiovisual · Porto Alegre</span>
+          <h1>Histórias que <span class="gradient-text">movem</span><br />sua marca.</h1>
+          <p class="lead">
+            Edição de vídeo, filmagens, fotografia, CGs, vinhetas e podcasts. Tudo o que sua marca precisa
+            para acontecer na tela.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#contact">Começar projeto</a>
+            <a class="button button-secondary" href="#services">Ver serviços</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" aria-labelledby="services-title">
+        <div class="container">
+          <div class="section-intro">
+            <p class="kicker">O que fazemos</p>
+            <h2 id="services-title">Produção completa, do roteiro ao publish.</h2>
+          </div>
+
+          <div class="services-grid">
+            <article class="service">
+              <div class="service-icon" aria-hidden="true">EV</div>
+              <h3>Edição de Vídeo</h3>
+              <p>Cortes precisos, ritmo e narrativa que prendem do primeiro ao último segundo.</p>
+            </article>
+            <article class="service">
+              <div class="service-icon" aria-hidden="true">VM</div>
+              <h3>Video Making</h3>
+              <p>Captação completa para campanhas, redes sociais e conteúdo institucional.</p>
+            </article>
+            <article class="service">
+              <div class="service-icon" aria-hidden="true">LP</div>
+              <h3>Landing Pages</h3>
+              <p>Páginas que convertem, com design moderno alinhado à sua marca.</p>
+            </article>
+            <article class="service">
+              <div class="service-icon" aria-hidden="true">CG</div>
+              <h3>Fotos & CGs</h3>
+              <p>Fotografia profissional e computação gráfica para destacar seu produto.</p>
+            </article>
+            <article class="service">
+              <div class="service-icon" aria-hidden="true">VA</div>
+              <h3>Vinhetas de Abertura</h3>
+              <p>Aberturas marcantes que dão identidade ao seu conteúdo.</p>
+            </article>
+            <article class="service">
+              <div class="service-icon" aria-hidden="true">EP</div>
+              <h3>Edição para Podcasts</h3>
+              <p>Cortes, sound design e versões em vídeo prontas para publicar.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="clients" class="clients-section" aria-labelledby="clients-title">
+        <div class="container">
+          <div class="clients-head">
+            <div>
+              <p class="kicker">Nossos clientes</p>
+              <h2 id="clients-title">Empresas que já trabalharam conosco.</h2>
+            </div>
+            <p>
+              Marcas e projetos que confiaram na Aust Midia para transformar ideias em conteúdo audiovisual
+              com presença, ritmo e identidade.
+            </p>
+          </div>
+
+          <div class="clients-grid" aria-label="Lista de clientes">
+            <div class="client-logo">
+              <img src="Logos dos clientes/Prohub_LOGO_H.png" alt="Prohub" />
+            </div>
+            <div class="client-logo">
+              <img src="Logos dos clientes/rsplaytv.png" alt="RS Play TV" />
+            </div>
+            <div class="client-logo">
+              <img src="Logos dos clientes/Sbtrs.webp" alt="SBT" />
+            </div>
+            <div class="client-logo">
+              <img src="Logos dos clientes/DC_Comics_2024.svg.webp" alt="DC" />
+            </div>
+            <div class="client-logo">
+              <img class="logo-wide" src="Logos dos clientes/panini-logo-png_seeklogo-322629.png" alt="Panini" />
+            </div>
+            <div class="client-logo">
+              <img src="Logos dos clientes/porto alegre 24 horas.png" alt="Porto Alegre 24 Horas" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" aria-labelledby="about-title">
+        <div class="container about-layout">
+          <div>
+            <p class="kicker">Sobre</p>
+            <h2 id="about-title">Conteúdo com técnica, ritmo e identidade.</h2>
+            <p class="about-copy">
+              A Aust Midia nasceu para entregar audiovisual de alto nível para marcas que querem se destacar.
+              Trabalhamos lado a lado com você, do conceito à versão final, para criar peças que comunicam
+              com clareza e emoção.
+            </p>
+            <div class="stats" aria-label="Números da Aust Midia">
+              <div class="stat">
+                <strong>100+</strong>
+                <span>Projetos</span>
+              </div>
+              <div class="stat">
+                <strong>6</strong>
+                <span>Serviços</span>
+              </div>
+              <div class="stat">
+                <strong>POA</strong>
+                <span>Base</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-video">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/SzEYpTWBcOU?rel=0"
+              title="Vídeo da Aust Midia"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <p class="video-fallback">
+            Se o player não carregar no preview local,
+            <a href="https://www.youtube.com/watch?v=SzEYpTWBcOU" target="_blank" rel="noreferrer">assista no YouTube</a>.
+          </p>
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title">
+        <div class="container">
+          <div class="contact">
+            <h2 id="contact-title">Vamos criar <span class="gradient-text">algo grande</span>?</h2>
+            <p>Conta pra gente sua ideia no Instagram. Respondemos rapidinho com um plano sob medida.</p>
+            <a class="button button-primary" href="https://www.instagram.com/amidiapoa/" target="_blank" rel="noreferrer">
+              @amidiapoa
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>© 2026 Aust Midia</span>
+        </div>
+        <div class="footer-links">
+          <a href="mailto:lais.times@austmidia.art">lais.times@austmidia.art</a>
+          <a href="https://www.instagram.com/amidiapoa/" target="_blank" rel="noreferrer">instagram.com/amidiapoa</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
